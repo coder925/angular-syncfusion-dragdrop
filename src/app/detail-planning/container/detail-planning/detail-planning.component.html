@@ -1,0 +1,11 @@
+<div style="display: flex;">
+    <div style="width: 80%;">
+        <app-plan-scheduler id='droppable'></app-plan-scheduler>
+    </div>
+
+    <div style="display: flex; flex-direction: column;">
+        <div *ngFor="let item of data" id='draggable'>
+        {{item.descr}} - {{item.startTime | date: 'shortDate'}} - {{item.endTime | date: 'shortDate'}}
+        </div>
+    </div>
+</div>
