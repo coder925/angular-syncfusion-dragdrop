@@ -4,7 +4,7 @@
     </div>
 
     <div style="display: flex; flex-direction: column;">
-        <div *ngFor="let item of data" id='draggable'>
+        <div *ngFor="let item of data" id='draggable' #ele [attr.data-process-id]="item.id" [attr.data-process-desc]="item.descr">
         {{item.descr}} - {{item.startTime | date: 'shortDate'}} - {{item.endTime | date: 'shortDate'}}
         </div>
     </div>

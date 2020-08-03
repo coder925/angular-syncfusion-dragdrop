@@ -28,13 +28,28 @@ export class PlanSchedulerComponent implements OnInit {
 
   ngAfterViewInit() {
     let draggable: Draggable = new Draggable(document.getElementById('draggable'), { clone: false });
+
     let droppable: Droppable = new Droppable(document.getElementById('droppable'), {
       drop: (e: DropEventArgs) => {
+        console.log('drop() action executed with event args:', e);
+
+        console.log('data-process-id: ', e.droppedElement.getAttribute('data-process-id'));
+        console.log('data-process-desc: ', e.droppedElement.getAttribute('data-process-desc'));
+
         let obj = (document.querySelector('.e-schedule') as any).ej2_instances[0];
         let data = obj.getCellDetails(e.target);
-        let Appointment = { Id: 100, Subject: "New Event", StartTime: data.startTime, EndTime: data.endTime, IsAllDay: data.isAllDay };
-        obj.openEditor(Appointment, 'Add', true);
+
         document.querySelector('#draggable').remove();
+
+        if (data == null)
+        {
+          return;
+        }
+
+        let appointment = { Id: 100, Subject: e.droppedElement.getAttribute('data-process-desc'), StartTime: data.startTime, EndTime: data.endTime, IsAllDay: data.isAllDay };
+        console.log('adding event: ', appointment);
+        this.scheduleObj.addEvent(appointment);
+
       }
     });
   }
